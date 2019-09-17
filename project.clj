@@ -5,6 +5,7 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [com.beust/jcommander "1.78"]
+                 [cli-matic "0.3.8"]
                  [info.picocli/picocli "4.0.4"]]
   :main ^:skip-aot clj-cli-poc.core
   :target-path "target/%s"
