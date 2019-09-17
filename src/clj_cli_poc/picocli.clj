@@ -1,12 +1,14 @@
-(ns clj-cli-poc.picocli
-  (:import picocli.CommandLine$Option
-           picocli.CommandLine))
+(ns clj-cli-poc.picocli)
 
-(defrecord Address [^{picocli.CommandLine$Option {:names ["-a"]}} street])
+(import 'picocli.CommandLine$Option
+        'picocli.CommandLine)
+
+(defrecord Address [^{picocli.CommandLine$Option {:names ["--street" "-s"]}} street
+                    ^{picocli.CommandLine$Option {:names ["--city" "-c"]}} city
+                    ^{picocli.CommandLine$Option {:names ["--state" "-st"]}} state
+                    ^{picocli.CommandLine$Option {:names ["--zip" "-z"]}} zip])
 
 (defn -main [& args]
-  (let [a (Address. nil)
-        r (. (CommandLine. a) (parseArgs (into-array args)))
-        option (first (. r matchedOptions))]
-    (prn (. option shortestName))
-    (prn (. option getValue))))
+  (let [address (map->Address {:zip 90210})]
+    (. (CommandLine. address) (parseArgs (into-array args)))
+    (prn (into {} address))))
